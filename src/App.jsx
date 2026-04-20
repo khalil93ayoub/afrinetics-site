@@ -173,6 +173,53 @@ export default function App() {
           ))}
         </div>
       </section>
+         <footer
+        style={{
+          padding: '40px 24px 60px',
+          textAlign: 'center'
+        }}
+      >
+        <a
+          href="https://www.instagram.com/afri_netics/"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 56,
+            height: 56,
+            marginRight: 16,
+            borderRadius: '50%',
+            background: '#1a1a1a',
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: 28
+          }}
+        >
+          📷
+        </a>
+
+        <a
+          href="https://www.facebook.com/afrinetic"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: '#1a1a1a',
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: 28
+          }}
+        >
+          f
+        </a>
+      </footer>
     </div>
   )
 }
