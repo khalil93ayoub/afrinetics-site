@@ -30,8 +30,10 @@ function createProductCard(product) {
 
   card.innerHTML = `
     <p class="product-card__size">${product.size}</p>
-    <p class="product-card__shipping">Free shipping in Germany</p>
-    <p class="product-card__price">${product.price}</p>
+    <div class="product-card__details">
+      <p class="product-card__shipping">Free shipping in Germany</p>
+      <p class="product-card__price">${product.price}</p>
+    </div>
     <a class="button" href="${product.href}" target="_blank" rel="noreferrer">
       Buy on eBay
     </a>
