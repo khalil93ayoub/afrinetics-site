@@ -8,14 +8,16 @@
       content="Afrinetics oversized t-shirts inspired by African identity, pride, and heritage."
     />
     <title>Afrinetics | African Genetics</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="preload" as="image" href="/logo.png?v=20260520" />
+    <link rel="preload" as="image" href="/tshirt.png?v=20260520" />
+    <link rel="stylesheet" href="/styles.css?v=20260520" />
   </head>
   <body>
     <main class="site-shell">
       <section class="hero" aria-labelledby="hero-title">
         <img
           class="hero__mark"
-          src="logo.png"
+          src="/logo.png?v=20260520"
           alt=""
           aria-hidden="true"
         />
@@ -31,7 +33,7 @@
 
         <img
           class="hero__product"
-          src="tshirt.png"
+          src="/tshirt.png?v=20260520"
           alt="Black Afrinetics oversized t-shirt"
         />
       </section>
@@ -51,6 +53,6 @@
       </footer>
     </main>
 
-    <script src="script.js" defer></script>
+    <script src="/script.js?v=20260520" defer></script>
   </body>
 </html>
