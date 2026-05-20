@@ -8,16 +8,24 @@
       content="Afrinetics oversized t-shirts inspired by African identity, pride, and heritage."
     />
     <title>Afrinetics | African Genetics</title>
-    <link rel="preload" as="image" href="/logo.png?v=20260520-3" />
-    <link rel="preload" as="image" href="/tshirt.png?v=20260520-3" />
-    <link rel="stylesheet" href="/styles.css?v=20260520-3" />
+    <link rel="preload" as="image" href="/logo.png?v=20260520-4" />
+    <link rel="preload" as="image" href="/tshirt.png?v=20260520-4" />
+    <link rel="stylesheet" href="/styles.css?v=20260520-4" />
   </head>
   <body>
-    <main class="site-shell">
+    <header class="site-header">
+      <a class="brand-link" href="#top">Afrinetics</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#shop">Shop</a>
+        <a href="#story">Story</a>
+      </nav>
+    </header>
+
+    <main id="top" class="site-shell">
       <section class="hero" aria-labelledby="hero-title">
         <img
           class="hero__mark"
-          src="/logo.png?v=20260520-3"
+          src="/logo.png?v=20260520-4"
           alt=""
           aria-hidden="true"
         />
@@ -26,26 +34,71 @@
           <p class="hero__eyebrow">African Genetics</p>
           <h1 id="hero-title">AFRINETICS</h1>
           <p class="hero__copy">
-            A premium oversized t-shirt inspired by identity, pride and
-            heritage. Free shipping everywhere in Germany.
+            Oversized streetwear shaped by identity, pride, and heritage.
+            Built around one clean statement piece.
           </p>
+          <a class="button button--hero" href="#shop">Shop the T-Shirt</a>
+
+          <dl class="hero__facts" aria-label="Product highlights">
+            <div>
+              <dt>Fit</dt>
+              <dd>Oversized</dd>
+            </div>
+            <div>
+              <dt>Shipping</dt>
+              <dd>Germany free</dd>
+            </div>
+            <div>
+              <dt>Sizes</dt>
+              <dd>M / L</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
-      <section class="products" aria-labelledby="products-title">
-        <img
-          class="product-showcase"
-          src="/tshirt.png?v=20260520-3"
-          alt="Black Afrinetics oversized t-shirt"
-        />
+      <section class="shop" id="shop" aria-labelledby="shop-title">
+        <div class="shop__visual">
+          <p class="shop__label">Signature drop</p>
+          <img
+            class="product-showcase"
+            src="/tshirt.png?v=20260520-4"
+            alt="Black Afrinetics oversized t-shirt"
+          />
+        </div>
 
         <div class="shop-panel">
           <div class="section-heading">
             <p class="section-heading__label">Shop</p>
-            <h2 id="products-title">Available Sizes</h2>
+            <h2 id="shop-title">Afrinetics oversized t-shirt</h2>
           </div>
+          <p class="shop-panel__copy">
+            A black everyday piece with the Afrinetics mark placed front and
+            center. Choose your size and finish checkout through eBay.
+          </p>
 
           <div class="product-grid" id="product-grid"></div>
+        </div>
+      </section>
+
+      <section class="story" id="story" aria-labelledby="story-title">
+        <div class="section-heading">
+          <p class="section-heading__label">Story</p>
+          <h2 id="story-title">Made for identity in motion.</h2>
+        </div>
+
+        <div class="story__grid">
+          <article>
+            <h3>Identity</h3>
+            <p>A clear visual language rooted in African genetics and culture.</p>
+          </article>
+          <article>
+            <h3>Pride</h3>
+            <p>Designed to feel direct, confident, and easy to wear.</p>
+          </article>
+          <article>
+            <h3>Heritage</h3>
+            <p>A modern streetwear layer carrying a deeper origin story.</p>
+          </article>
         </div>
       </section>
 
@@ -55,6 +108,6 @@
       </footer>
     </main>
 
-    <script src="/script.js?v=20260520-3" defer></script>
+    <script src="/script.js?v=20260520-4" defer></script>
   </body>
 </html>
