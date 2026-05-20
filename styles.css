@@ -69,13 +69,13 @@ img {
 
 .hero__mark {
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 50%;
   z-index: -2;
-  width: min(88vw, 44rem);
-  max-height: 68vh;
+  width: min(84vw, 56rem);
   max-width: none;
-  opacity: 0.2;
+  height: auto;
+  opacity: 0.19;
   filter: invert(1);
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -251,15 +251,20 @@ img {
 
 @media (max-width: 760px) {
   .hero {
+    align-items: center;
     min-height: 92vh;
-    padding-bottom: 4rem;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 
   .hero__mark {
-    top: 42%;
-    width: min(96vw, 28rem);
-    max-height: 58vh;
+    top: 44%;
+    width: min(88vw, 25rem);
     opacity: 0.18;
+  }
+
+  .hero__content {
+    transform: translateY(2rem);
   }
 
   .products {
