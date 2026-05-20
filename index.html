@@ -8,9 +8,49 @@
       content="Afrinetics oversized t-shirts inspired by African identity, pride, and heritage."
     />
     <title>Afrinetics | African Genetics</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <main class="site-shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero__mark"
+          src="logo.png"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <div class="hero__content">
+          <p class="hero__eyebrow">African Genetics</p>
+          <h1 id="hero-title">AFRINETICS</h1>
+          <p class="hero__copy">
+            A premium oversized t-shirt inspired by identity, pride and
+            heritage. Free shipping everywhere in Germany.
+          </p>
+        </div>
+
+        <img
+          class="hero__product"
+          src="tshirt.png"
+          alt="Black Afrinetics oversized t-shirt"
+        />
+      </section>
+
+      <section class="products" aria-labelledby="products-title">
+        <div class="section-heading">
+          <p class="section-heading__label">Shop</p>
+          <h2 id="products-title">Available Sizes</h2>
+        </div>
+
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+
+      <footer class="site-footer">
+        <p>Follow Afrinetics</p>
+        <nav class="social-links" id="social-links" aria-label="Social links"></nav>
+      </footer>
+    </main>
+
+    <script src="script.js" defer></script>
   </body>
 </html>
