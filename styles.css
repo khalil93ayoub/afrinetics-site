@@ -74,7 +74,7 @@ img {
   z-index: -2;
   width: min(72vw, 46rem);
   max-width: none;
-  opacity: 0.13;
+  opacity: 0.18;
   filter: invert(1);
   transform: translate(-50%, -53%);
   pointer-events: none;
@@ -247,7 +247,7 @@ img {
 
   .hero__mark {
     width: min(130vw, 34rem);
-    opacity: 0.11;
+    opacity: 0.16;
     transform: translate(-50%, -63%);
   }
 
