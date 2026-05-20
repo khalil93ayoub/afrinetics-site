@@ -1,225 +1,96 @@
-export default function App() {
-  const products = [
-    {
-      size: 'M',
-      price: '24,99 €',
-      link: 'https://www.ebay.de/itm/366348426609?var=636132495995'
-    },
-    {
-      size: 'L',
-      price: '29,99 €',
-      link: 'https://www.ebay.de/itm/366348426609?var=636132495994'
-    }
-  ]
+import logoUrl from '../logo.png'
+import tshirtUrl from '../tshirt.png'
 
+const products = [
+  {
+    size: 'M',
+    price: '24,99 €',
+    href: 'https://www.ebay.de/itm/366348426609?var=636132495995'
+  },
+  {
+    size: 'L',
+    price: '29,99 €',
+    href: 'https://www.ebay.de/itm/366348426609?var=636132495994'
+  }
+]
+
+const socialLinks = [
+  {
+    label: 'Instagram',
+    shortLabel: 'IG',
+    href: 'https://www.instagram.com/afri_netics/'
+  },
+  {
+    label: 'Facebook',
+    shortLabel: 'f',
+    href: 'https://www.facebook.com/afrinetic'
+  }
+]
+
+function ProductCard({ product }) {
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#050505',
-        color: 'white',
-        fontFamily: 'Arial, sans-serif'
-      }}
-    >
-      <section
-        style={{
-          padding: '80px 24px 60px',
-          background:
-            'radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 45%), linear-gradient(180deg, #111 0%, #050505 100%)',
-          textAlign: 'center'
-        }}
-      >
-        <img
-          src="https://raw.githubusercontent.com/khalil93ayoub/afrinetics-site/main/logo.png"
-          alt="Afrinetics logo"
-          style={{
-            width: 140,
-            height: 140,
-            objectFit: 'contain',
-            marginBottom: 24,
-            filter: 'invert(1)'
-          }}
-        />
+    <article className="product-card">
+      <p className="product-card__size">{product.size}</p>
+      <p className="product-card__shipping">Free shipping in Germany</p>
+      <p className="product-card__price">{product.price}</p>
+      <a className="button" href={product.href} target="_blank" rel="noreferrer">
+        Buy on eBay
+      </a>
+    </article>
+  )
+}
 
-        <h1
-          style={{
-            fontSize: 'clamp(52px, 9vw, 90px)',
-            margin: 0,
-            letterSpacing: 4
-          }}
-        >
-          AFRINETICS
-        </h1>
-
-        <p
-          style={{
-            fontSize: 24,
-            color: '#cfcfcf',
-            marginTop: 16,
-            letterSpacing: 2
-          }}
-        >
-          African Genetics
-        </p>
-
-        <p
-          style={{
-            maxWidth: 760,
-            margin: '28px auto 48px',
-            fontSize: 20,
-            lineHeight: 1.7,
-            color: '#b5b5b5'
-          }}
-        >
-          A premium oversized t-shirt inspired by identity, pride and heritage.
-          Free shipping everywhere in Germany.
-        </p>
+export default function App() {
+  return (
+    <main className="site-shell">
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero__content">
+          <img className="hero__logo" src={logoUrl} alt="Afrinetics logo" />
+          <p className="hero__eyebrow">African Genetics</p>
+          <h1 id="hero-title">AFRINETICS</h1>
+          <p className="hero__copy">
+            A premium oversized t-shirt inspired by identity, pride and
+            heritage. Free shipping everywhere in Germany.
+          </p>
+        </div>
 
         <img
-          src="https://raw.githubusercontent.com/khalil93ayoub/afrinetics-site/main/tshirt.png"
-          alt="Afrinetics t-shirt"
-          style={{
-            width: '100%',
-            maxWidth: 1100,
-            borderRadius: 32,
-            boxShadow: '0 30px 80px rgba(0,0,0,0.45)'
-          }}
+          className="hero__product"
+          src={tshirtUrl}
+          alt="Black Afrinetics oversized t-shirt"
         />
       </section>
 
-      <section
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          padding: '80px 24px'
-        }}
-      >
-        <h2
-          style={{
-            textAlign: 'center',
-            fontSize: 42,
-            marginBottom: 50
-          }}
-        >
-          Available Sizes
-        </h2>
+      <section className="products" aria-labelledby="products-title">
+        <div className="section-heading">
+          <p className="section-heading__label">Shop</p>
+          <h2 id="products-title">Available Sizes</h2>
+        </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 30
-          }}
-        >
+        <div className="product-grid">
           {products.map((product) => (
-            <div
-              key={product.size}
-              style={{
-                background: '#121212',
-                border: '1px solid #2a2a2a',
-                borderRadius: 30,
-                padding: 40,
-                textAlign: 'center'
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 56,
-                  fontWeight: 'bold',
-                  marginBottom: 10
-                }}
-              >
-                {product.size}
-              </div>
-
-              <div
-                style={{
-                  color: '#aaaaaa',
-                  marginBottom: 30,
-                  fontSize: 18
-                }}
-              >
-                Free shipping in Germany
-              </div>
-
-              <div
-                style={{
-                  fontSize: 34,
-                  fontWeight: 'bold',
-                  marginBottom: 34
-                }}
-              >
-                {product.price}
-              </div>
-
-              <a
-                href={product.link}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  display: 'inline-block',
-                  background: 'white',
-                  color: '#111',
-                  padding: '16px 28px',
-                  borderRadius: 18,
-                  textDecoration: 'none',
-                  fontWeight: 'bold',
-                  fontSize: 18
-                }}
-              >
-                Buy on eBay
-              </a>
-            </div>
+            <ProductCard key={product.size} product={product} />
           ))}
         </div>
       </section>
-         <footer
-        style={{
-          padding: '40px 24px 60px',
-          textAlign: 'center'
-        }}
-      >
-        <a
-          href="https://www.instagram.com/afri_netics/"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 56,
-            height: 56,
-            marginRight: 16,
-            borderRadius: '50%',
-            background: '#1a1a1a',
-            color: 'white',
-            textDecoration: 'none',
-            fontSize: 28
-          }}
-        >
-          📷
-        </a>
 
-        <a
-          href="https://www.facebook.com/afrinetic"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 56,
-            height: 56,
-            borderRadius: '50%',
-            background: '#1a1a1a',
-            color: 'white',
-            textDecoration: 'none',
-            fontSize: 28
-          }}
-        >
-          f
-        </a>
+      <footer className="site-footer">
+        <p>Follow Afrinetics</p>
+        <nav className="social-links" aria-label="Social links">
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              className="social-link"
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={link.label}
+            >
+              {link.shortLabel}
+            </a>
+          ))}
+        </nav>
       </footer>
-    </div>
+    </main>
   )
 }
