@@ -37,11 +37,13 @@ img {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 50% 0%, rgba(244, 219, 166, 0.12), transparent 34rem),
-    linear-gradient(180deg, #101010 0%, #050505 42rem);
+    radial-gradient(circle at 50% 2rem, rgba(244, 219, 166, 0.12), transparent 35rem),
+    linear-gradient(180deg, #101010 0%, #050505 44rem);
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 1.15fr);
   align-items: center;
@@ -52,16 +54,35 @@ img {
   padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 6vw, 5rem);
 }
 
-.hero__content {
-  max-width: 34rem;
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    rgba(5, 5, 5, 0.9) 0%,
+    rgba(5, 5, 5, 0.46) 48%,
+    rgba(5, 5, 5, 0.72) 100%
+  );
 }
 
-.hero__logo {
-  width: clamp(5rem, 10vw, 8rem);
-  height: clamp(5rem, 10vw, 8rem);
-  object-fit: contain;
-  margin-bottom: 2rem;
+.hero__mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -2;
+  width: min(72vw, 46rem);
+  max-width: none;
+  opacity: 0.13;
   filter: invert(1);
+  transform: translate(-50%, -53%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__content {
+  max-width: 34rem;
 }
 
 .hero__eyebrow,
@@ -96,7 +117,7 @@ img {
   object-fit: contain;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  background: #111111;
+  background: rgba(17, 17, 17, 0.82);
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.42);
 }
 
@@ -224,13 +245,14 @@ img {
     text-align: center;
   }
 
-  .hero__content {
-    justify-self: center;
+  .hero__mark {
+    width: min(130vw, 34rem);
+    opacity: 0.11;
+    transform: translate(-50%, -63%);
   }
 
-  .hero__logo {
-    margin-right: auto;
-    margin-left: auto;
+  .hero__content {
+    justify-self: center;
   }
 
   .hero__product {
