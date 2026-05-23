@@ -14,12 +14,24 @@ const products = [
 const socialLinks = [
   {
     label: 'Instagram',
-    shortLabel: 'IG',
+    platform: 'instagram',
+    icon: `
+      <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+      </svg>
+    `,
     href: 'https://www.instagram.com/afri_netics/'
   },
   {
     label: 'Facebook',
-    shortLabel: 'f',
+    platform: 'facebook',
+    icon: `
+      <svg width="22" height="22" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M14.2 8.2V6.8c0-.7.5-1.2 1.3-1.2H17V3.1c-.7-.1-1.6-.2-2.5-.2-2.6 0-4.3 1.6-4.3 4.5v.8H7.5v3h2.7V21h3.4v-9.8h2.8l.5-3h-3.3Z" />
+      </svg>
+    `,
     href: 'https://www.facebook.com/afrinetic'
   }
 ]
@@ -44,12 +56,12 @@ function createProductCard(product) {
 
 function createSocialLink(link) {
   const anchor = document.createElement('a')
-  anchor.className = 'social-link'
+  anchor.className = `social-link social-link--${link.platform}`
   anchor.href = link.href
   anchor.target = '_blank'
   anchor.rel = 'noreferrer'
-  anchor.ariaLabel = link.label
-  anchor.textContent = link.shortLabel
+  anchor.ariaLabel = `Open Afrinetics on ${link.label}`
+  anchor.innerHTML = link.icon
 
   return anchor
 }
