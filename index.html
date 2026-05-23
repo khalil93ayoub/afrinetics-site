@@ -8,9 +8,10 @@
       content="Afrinetics oversized t-shirts inspired by African identity, pride, and heritage."
     />
     <title>Afrinetics | African Genetics</title>
-    <link rel="preload" as="image" href="/logo.png?v=20260520-4" />
-    <link rel="preload" as="image" href="/tshirt.png?v=20260520-4" />
-    <link rel="stylesheet" href="/styles.css?v=20260520-4" />
+    <link rel="preload" as="image" href="/logo.png?v=20260523-1" />
+    <link rel="preload" as="image" href="/tshirt.png?v=20260523-1" />
+    <link rel="preload" as="image" href="/model-gallery.jpg?v=20260523-1" />
+    <link rel="stylesheet" href="/styles.css?v=20260523-1" />
   </head>
   <body>
     <header class="site-header">
@@ -25,7 +26,7 @@
       <section class="hero" aria-labelledby="hero-title">
         <img
           class="hero__mark"
-          src="/logo.png?v=20260520-4"
+          src="/logo.png?v=20260523-1"
           alt=""
           aria-hidden="true"
         />
@@ -57,13 +58,53 @@
       </section>
 
       <section class="shop" id="shop" aria-labelledby="shop-title">
-        <div class="shop__visual">
+        <div class="shop__visual shop-gallery" aria-label="Product photos">
           <p class="shop__label">Signature drop</p>
-          <img
-            class="product-showcase"
-            src="/tshirt.png?v=20260520-4"
-            alt="Black Afrinetics oversized t-shirt"
-          />
+
+          <div class="shop-gallery__thumbs" aria-label="Choose product photo">
+            <button
+              class="gallery-thumb is-active"
+              type="button"
+              data-gallery-image="/tshirt.png?v=20260523-1"
+              data-gallery-alt="Black Afrinetics oversized t-shirt front and back product view"
+              aria-label="Show front and back product view"
+              aria-pressed="true"
+            >
+              <img
+                src="/tshirt.png?v=20260523-1"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              class="gallery-thumb"
+              type="button"
+              data-gallery-image="/model-gallery.jpg?v=20260523-1"
+              data-gallery-alt="Models wearing the black Afrinetics oversized t-shirt from the front and back"
+              aria-label="Show model front and back view"
+              aria-pressed="false"
+            >
+              <img
+                src="/model-gallery.jpg?v=20260523-1"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+          </div>
+
+          <button
+            class="shop-gallery__stage"
+            type="button"
+            data-gallery-open
+            aria-label="Open selected product photo"
+          >
+            <img
+              class="product-showcase"
+              id="product-showcase"
+              src="/tshirt.png?v=20260523-1"
+              alt="Black Afrinetics oversized t-shirt front and back product view"
+            />
+          </button>
         </div>
 
         <div class="shop-panel">
@@ -108,6 +149,13 @@
       </footer>
     </main>
 
-    <script src="/script.js?v=20260520-4" defer></script>
+    <div class="lightbox" id="image-lightbox" hidden>
+      <button class="lightbox__close" type="button" aria-label="Close image">
+        Close
+      </button>
+      <img class="lightbox__image" src="" alt="" />
+    </div>
+
+    <script src="/script.js?v=20260523-1" defer></script>
   </body>
 </html>
