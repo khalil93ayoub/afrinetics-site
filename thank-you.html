@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Afrinetics order confirmation page."
+    />
+    <title>Thank You | Afrinetics</title>
+    <link rel="preload" as="image" href="/logo.png?v=20260523-1" />
+    <link rel="stylesheet" href="/styles.css?v=20260609-1" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand-link" href="/">Afrinetics</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#shop">Shop</a>
+        <a href="/#story">Story</a>
+      </nav>
+    </header>
+
+    <main id="top" class="site-shell">
+      <section class="thanks" aria-labelledby="thanks-title">
+        <img
+          class="hero__mark thanks__mark"
+          src="/logo.png?v=20260523-1"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <div class="thanks__content">
+          <p class="hero__eyebrow">Order received</p>
+          <h1 id="thanks-title">Thank you.</h1>
+          <p class="thanks__copy">
+            Your Afrinetics checkout is complete. Stripe will send the receipt
+            to the email address used during payment.
+          </p>
+
+          <div class="thanks__receipt" aria-live="polite">
+            <p class="thanks__receipt-label">Confirmation ID</p>
+            <p class="thanks__receipt-id" id="confirmation-id">
+              Check your Stripe receipt for confirmation details.
+            </p>
+            <p class="thanks__receipt-size" id="order-size" hidden></p>
+          </div>
+
+          <div class="thanks__actions">
+            <a class="button" href="/#shop">Back to Shop</a>
+            <a class="button button--ghost" href="/">Home</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const params = new URLSearchParams(window.location.search)
+      const sessionId = params.get('session_id')
+      const selectedSize = params.get('utm_content')?.replace('size_', '')
+      const confirmationId = document.querySelector('#confirmation-id')
+      const orderSize = document.querySelector('#order-size')
+
+      if (sessionId && confirmationId) {
+        confirmationId.textContent = sessionId
+      }
+
+      if (selectedSize && orderSize) {
+        orderSize.hidden = false
+        orderSize.textContent = `Selected size: ${selectedSize.toUpperCase()}`
+      }
+    </script>
+  </body>
+</html>
