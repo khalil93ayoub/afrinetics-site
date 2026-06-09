@@ -1,15 +1,8 @@
-const products = [
-  {
-    size: 'M',
-    price: '24,99 €',
-    href: 'https://www.ebay.de/itm/366348426609?var=636132495995'
-  },
-  {
-    size: 'L',
-    price: '29,99 €',
-    href: 'https://www.ebay.de/itm/366348426609?var=636132495994'
-  }
-]
+const product = {
+  sizes: ['M', 'L'],
+  price: '$24.99',
+  stripePaymentLink: 'https://buy.stripe.com/fZu28rdeA1vc8XFgWbcIE04'
+}
 
 const socialLinks = [
   {
@@ -36,22 +29,65 @@ const socialLinks = [
   }
 ]
 
-function createProductCard(product) {
-  const card = document.createElement('article')
-  card.className = 'product-card'
+function buildStripeCheckoutUrl(size) {
+  const selectedSize = product.sizes.includes(size) ? size : product.sizes[0]
+  const orderReference = `AG-${selectedSize}-${Date.now().toString(36).toUpperCase()}`
+  const checkoutUrl = new URL(product.stripePaymentLink)
 
-  card.innerHTML = `
-    <p class="product-card__size">${product.size}</p>
-    <div class="product-card__details">
-      <p class="product-card__shipping">Free shipping in Germany</p>
-      <p class="product-card__price">${product.price}</p>
+  checkoutUrl.searchParams.set('client_reference_id', orderReference)
+  checkoutUrl.searchParams.set('utm_source', 'afrinetics_site')
+  checkoutUrl.searchParams.set('utm_medium', 'website')
+  checkoutUrl.searchParams.set('utm_campaign', 'affirmative_tshirts')
+  checkoutUrl.searchParams.set('utm_content', `size_${selectedSize}`)
+
+  return checkoutUrl.toString()
+}
+
+function getSelectedSize(form) {
+  const formData = new FormData(form)
+  const selectedSize = String(formData.get('size') || product.sizes[0]).toUpperCase()
+
+  return product.sizes.includes(selectedSize) ? selectedSize : product.sizes[0]
+}
+
+function createCheckoutPanel() {
+  const form = document.createElement('form')
+  form.className = 'checkout-card'
+  form.id = 'checkout-form'
+
+  const sizeOptions = product.sizes
+    .map(
+      (size, index) => `
+        <label class="size-choice">
+          <input type="radio" name="size" value="${size}" ${index === 0 ? 'checked' : ''} />
+          <span>${size}</span>
+        </label>
+      `
+    )
+    .join('')
+
+  form.innerHTML = `
+    <div class="checkout-card__header">
+      <div>
+        <p class="checkout-card__label">Choose size</p>
+        <div class="size-options" role="radiogroup" aria-label="Choose t-shirt size">
+          ${sizeOptions}
+        </div>
+      </div>
+      <div class="checkout-card__price" aria-label="Price">
+        <span>Price</span>
+        <strong>${product.price}</strong>
+      </div>
     </div>
-    <a class="button" href="${product.href}" target="_blank" rel="noreferrer">
-      Buy on eBay
-    </a>
+    <p class="checkout-card__note">
+      Same price for M and L. Your selected size is attached to the Stripe checkout.
+    </p>
+    <button class="button checkout-card__button" type="submit" data-checkout-button>
+      Checkout with Stripe
+    </button>
   `
 
-  return card
+  return form
 }
 
 function createSocialLink(link) {
@@ -64,6 +100,28 @@ function createSocialLink(link) {
   anchor.innerHTML = link.icon
 
   return anchor
+}
+
+function setupCheckout() {
+  const form = document.querySelector('#checkout-form')
+  const checkoutButton = form?.querySelector('[data-checkout-button]')
+
+  if (!form || !checkoutButton) {
+    return
+  }
+
+  function updateButtonLabel() {
+    const selectedSize = getSelectedSize(form)
+    checkoutButton.textContent = `Checkout size ${selectedSize} with Stripe`
+  }
+
+  form.addEventListener('change', updateButtonLabel)
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    window.location.href = buildStripeCheckoutUrl(getSelectedSize(form))
+  })
+
+  updateButtonLabel()
 }
 
 function setupProductGallery() {
@@ -139,12 +197,12 @@ function setupProductGallery() {
   })
 }
 
-document
-  .querySelector('#product-grid')
-  .replaceChildren(...products.map(createProductCard))
+const productGrid = document.querySelector('#product-grid')
+productGrid?.replaceChildren(createCheckoutPanel())
 
 document
   .querySelector('#social-links')
-  .replaceChildren(...socialLinks.map(createSocialLink))
+  ?.replaceChildren(...socialLinks.map(createSocialLink))
 
 setupProductGallery()
+setupCheckout()
