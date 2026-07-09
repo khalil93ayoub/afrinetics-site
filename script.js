@@ -1,6 +1,6 @@
 const product = {
   sizes: ['M', 'L'],
-  price: '$24.99',
+  price: '€24.99',
   stripePaymentLink: 'https://buy.stripe.com/fZu28rdeA1vc8XFgWbcIE04'
 }
 
@@ -26,6 +26,41 @@ const socialLinks = [
       </svg>
     `,
     href: 'https://www.facebook.com/afrinetic'
+  }
+]
+
+const featuredBanners = [
+  {
+    title: 'Afrinetics Basic',
+    status: 'Available now',
+    badge: '€24.99',
+    desktopImage: '/assets/banners/afrinetics-basic-desktop.png?v=20260709-1',
+    mobileImage: '/assets/banners/afrinetics-basic-mobile.png?v=20260709-1',
+    alt: 'Afrinetics Basic black half-sleeve t-shirt banner'
+  },
+  {
+    title: 'Afrinetics Sayajin',
+    status: 'Coming soon',
+    badge: 'Coming soon',
+    desktopImage: '/assets/banners/afrinetics-sayajin-desktop.png?v=20260709-1',
+    mobileImage: '/assets/banners/afrinetics-sayajin-mobile.png?v=20260709-1',
+    alt: 'Afrinetics Sayajin sleeveless black t-shirt banner'
+  },
+  {
+    title: 'Afrinetics Legacy',
+    status: 'Coming soon',
+    badge: 'Coming soon',
+    desktopImage: '/assets/banners/afrinetics-legacy-desktop.png?v=20260709-1',
+    mobileImage: '/assets/banners/afrinetics-legacy-mobile.png?v=20260709-1',
+    alt: 'Afrinetics Legacy grey sleeveless t-shirt banner'
+  },
+  {
+    title: 'Afrinetics Unbreakable',
+    status: 'Coming soon',
+    badge: 'Coming soon',
+    desktopImage: '/assets/banners/afrinetics-unbreakable-desktop.png?v=20260709-1',
+    mobileImage: '/assets/banners/afrinetics-unbreakable-mobile.png?v=20260709-1',
+    alt: 'Afrinetics Unbreakable sleeveless hoodie banner'
   }
 ]
 
@@ -197,6 +232,107 @@ function setupProductGallery() {
   })
 }
 
+function setupBannerHero() {
+  const bannerStack = document.querySelector('#banner-stack')
+  const bannerControls = document.querySelector('#banner-controls')
+
+  if (!bannerStack || !bannerControls) {
+    return
+  }
+
+  let activeBannerIndex = 0
+
+  function getBannerMotionMetrics() {
+    if (window.matchMedia('(max-width: 520px)').matches) {
+      return { shiftStep: 2.3, depthStep: 3.8, scaleStep: 0.055, rotateStep: 3 }
+    }
+
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      return { shiftStep: 2.75, depthStep: 4.2, scaleStep: 0.055, rotateStep: 3 }
+    }
+
+    if (window.matchMedia('(max-width: 860px)').matches) {
+      return { shiftStep: 4.5, depthStep: 5, scaleStep: 0.06, rotateStep: 4 }
+    }
+
+    return { shiftStep: 8.5, depthStep: 8, scaleStep: 0.075, rotateStep: 5 }
+  }
+
+  function setActiveBanner(nextIndex) {
+    const selectedIndex = Number(nextIndex) || 0
+    const metrics = getBannerMotionMetrics()
+
+    activeBannerIndex = selectedIndex
+
+    ;[...bannerStack.querySelectorAll('.banner-card')].forEach((card) => {
+      const cardIndex = Number(card.dataset.bannerIndex || 0)
+      const isActive = cardIndex === selectedIndex
+      const offset = cardIndex - selectedIndex
+      const distance = Math.abs(offset)
+
+      card.classList.toggle('is-active', isActive)
+      card.setAttribute('aria-pressed', String(isActive))
+      card.style.setProperty('--z', String(8 - distance))
+      card.style.setProperty('--side-shift', `${offset * metrics.shiftStep}rem`)
+      card.style.setProperty('--depth-shift', `${distance * -metrics.depthStep}rem`)
+      card.style.setProperty('--turn', `${offset * -metrics.rotateStep}deg`)
+      card.style.setProperty('--card-scale', String(Math.max(0.76, 1 - distance * metrics.scaleStep)))
+      card.style.setProperty('--card-opacity', String(Math.max(0.52, 1 - distance * 0.12)))
+      card.style.setProperty('--card-blur', `${distance * 1.7}px`)
+      card.style.setProperty('--card-saturation', String(Math.max(0.68, 1 - distance * 0.08)))
+    })
+
+    ;[...bannerControls.querySelectorAll('.banner-dot')].forEach((control) => {
+      const isActive = Number(control.dataset.bannerIndex || 0) === selectedIndex
+      control.classList.toggle('is-active', isActive)
+      control.setAttribute('aria-pressed', String(isActive))
+    })
+  }
+
+  const bannerCards = featuredBanners.map((item, index) => {
+    const button = document.createElement('button')
+    button.className = `banner-card${index === 0 ? ' is-active' : ''}`
+    button.type = 'button'
+    button.dataset.bannerIndex = String(index)
+    button.style.setProperty('--offset', String(index))
+    button.style.setProperty('--distance', String(index))
+    button.setAttribute('aria-label', `Show ${item.title}`)
+    button.setAttribute('aria-pressed', String(index === 0))
+    button.innerHTML = `
+      <picture>
+        <source media="(max-width: 720px)" srcset="${item.mobileImage}" />
+        <img src="${item.desktopImage}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
+      </picture>
+      <span class="banner-card__badge">${item.badge}</span>
+      <span class="banner-card__meta">${item.status}</span>
+    `
+
+    button.addEventListener('pointerenter', () => setActiveBanner(index))
+    button.addEventListener('click', () => setActiveBanner(index))
+    button.addEventListener('focus', () => setActiveBanner(index))
+
+    return button
+  })
+
+  const controls = featuredBanners.map((item, index) => {
+    const control = document.createElement('button')
+    control.className = `banner-dot${index === 0 ? ' is-active' : ''}`
+    control.type = 'button'
+    control.dataset.bannerIndex = String(index)
+    control.setAttribute('aria-label', `Show ${item.title}`)
+    control.setAttribute('aria-pressed', String(index === 0))
+    control.textContent = item.title.replace('Afrinetics ', '')
+    control.addEventListener('click', () => setActiveBanner(index))
+
+    return control
+  })
+
+  bannerStack.replaceChildren(...bannerCards)
+  bannerControls.replaceChildren(...controls)
+  setActiveBanner(0)
+  window.addEventListener('resize', () => setActiveBanner(activeBannerIndex), { passive: true })
+}
+
 const productGrid = document.querySelector('#product-grid')
 productGrid?.replaceChildren(createCheckoutPanel())
 
@@ -206,3 +342,4 @@ document
 
 setupProductGallery()
 setupCheckout()
+setupBannerHero()

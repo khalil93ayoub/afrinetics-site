@@ -11,12 +11,16 @@
     <link rel="preload" as="image" href="/logo.png?v=20260523-1" />
     <link rel="preload" as="image" href="/tshirt.png?v=20260523-1" />
     <link rel="preload" as="image" href="/model-gallery.jpg?v=20260524-1" />
-    <link rel="stylesheet" href="/styles.css?v=20260609-1" />
+    <link rel="preload" as="image" href="/assets/mockups/shirt-gold-sharp.png?v=20260704-1" />
+    <link rel="preload" as="image" href="/assets/banners/afrinetics-basic-desktop.png?v=20260709-1" media="(min-width: 721px)" />
+    <link rel="preload" as="image" href="/assets/banners/afrinetics-basic-mobile.png?v=20260709-1" media="(max-width: 720px)" />
+    <link rel="stylesheet" href="/styles.css?v=20260709-1" />
   </head>
   <body>
     <header class="site-header">
       <a class="brand-link" href="#top">Afrinetics</a>
       <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#motion-drop">Drop</a>
         <a href="#shop">Shop</a>
         <a href="#story">Story</a>
       </nav>
@@ -47,13 +51,44 @@
             </div>
             <div>
               <dt>Price</dt>
-              <dd>$24.99</dd>
+              <dd>€24.99</dd>
             </div>
             <div>
               <dt>Sizes</dt>
               <dd>M / L</dd>
             </div>
           </dl>
+        </div>
+      </section>
+
+      <section
+        class="banner-hero"
+        id="motion-drop"
+        aria-labelledby="banner-hero-title"
+      >
+        <div class="banner-hero__intro">
+          <p class="section-heading__label">Featured Drops</p>
+          <h2 id="banner-hero-title">Afrinetics visual collection</h2>
+          <p>
+            A premium look at the first release and the next concepts in the
+            Afrinetics line.
+          </p>
+        </div>
+
+        <div
+          class="banner-hero__stage"
+          id="banner-stack"
+          aria-label="Afrinetics featured banner selector"
+        ></div>
+
+        <div
+          class="banner-hero__controls"
+          id="banner-controls"
+          aria-label="Choose featured banner"
+        ></div>
+
+        <div class="banner-hero__footer">
+          <a class="button banner-hero__button" href="#shop">Shop Basic</a>
         </div>
       </section>
 
@@ -114,7 +149,7 @@
           </div>
           <p class="shop-panel__copy">
             A black everyday piece with the Afrinetics mark placed front and
-            center. Choose M or L, keep the same $24.99 price, and finish
+            center. Choose M or L, keep the same €24.99 price, and finish
             checkout securely through Stripe.
           </p>
 
@@ -157,6 +192,6 @@
       <img class="lightbox__image" src="" alt="" />
     </div>
 
-    <script src="/script.js?v=20260609-1" defer></script>
+    <script src="/script.js?v=20260709-1" defer></script>
   </body>
 </html>
