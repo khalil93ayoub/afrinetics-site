@@ -32,34 +32,34 @@ const socialLinks = [
 const featuredBanners = [
   {
     title: 'Afrinetics Basic',
+    headline: 'Pure roots, clean style, and everyday pride made for confident movement.',
     status: 'Available now',
     badge: '€24.99',
-    desktopImage: '/assets/banners/afrinetics-basic-desktop.png?v=20260709-1',
-    mobileImage: '/assets/banners/afrinetics-basic-mobile.png?v=20260709-1',
+    image: '/assets/seamless/basic-shirt.png?v=20260709-2',
     alt: 'Afrinetics Basic black half-sleeve t-shirt banner'
   },
   {
     title: 'Afrinetics Sayajin',
+    headline: 'Power in every thread, made for warriors who rise with purpose.',
     status: 'Coming soon',
     badge: 'Coming soon',
-    desktopImage: '/assets/banners/afrinetics-sayajin-desktop.png?v=20260709-1',
-    mobileImage: '/assets/banners/afrinetics-sayajin-mobile.png?v=20260709-1',
+    image: '/assets/seamless/sayajin-shirt.png?v=20260709-2',
     alt: 'Afrinetics Sayajin sleeveless black t-shirt banner'
   },
   {
     title: 'Afrinetics Legacy',
+    headline: 'Built on legacy, driven by discipline, and worn with unshakable pride.',
     status: 'Coming soon',
     badge: 'Coming soon',
-    desktopImage: '/assets/banners/afrinetics-legacy-desktop.png?v=20260709-1',
-    mobileImage: '/assets/banners/afrinetics-legacy-mobile.png?v=20260709-1',
+    image: '/assets/seamless/legacy-shirt.png?v=20260709-2',
     alt: 'Afrinetics Legacy grey sleeveless t-shirt banner'
   },
   {
     title: 'Afrinetics Unbreakable',
+    headline: 'Bold spirit, fearless heart, and unshaken pride stitched into every seam.',
     status: 'Coming soon',
     badge: 'Coming soon',
-    desktopImage: '/assets/banners/afrinetics-unbreakable-desktop.png?v=20260709-1',
-    mobileImage: '/assets/banners/afrinetics-unbreakable-mobile.png?v=20260709-1',
+    image: '/assets/seamless/unbreakable-shirt.png?v=20260709-2',
     alt: 'Afrinetics Unbreakable sleeveless hoodie banner'
   }
 ]
@@ -242,44 +242,22 @@ function setupBannerHero() {
 
   let activeBannerIndex = 0
 
-  function getBannerMotionMetrics() {
-    if (window.matchMedia('(max-width: 520px)').matches) {
-      return { shiftStep: 2.3, depthStep: 3.8, scaleStep: 0.055, rotateStep: 3 }
-    }
-
-    if (window.matchMedia('(max-width: 720px)').matches) {
-      return { shiftStep: 2.75, depthStep: 4.2, scaleStep: 0.055, rotateStep: 3 }
-    }
-
-    if (window.matchMedia('(max-width: 860px)').matches) {
-      return { shiftStep: 4.5, depthStep: 5, scaleStep: 0.06, rotateStep: 4 }
-    }
-
-    return { shiftStep: 8.5, depthStep: 8, scaleStep: 0.075, rotateStep: 5 }
-  }
-
   function setActiveBanner(nextIndex) {
     const selectedIndex = Number(nextIndex) || 0
-    const metrics = getBannerMotionMetrics()
+    const selectedItem = featuredBanners[selectedIndex] || featuredBanners[0]
 
     activeBannerIndex = selectedIndex
 
-    ;[...bannerStack.querySelectorAll('.banner-card')].forEach((card) => {
-      const cardIndex = Number(card.dataset.bannerIndex || 0)
-      const isActive = cardIndex === selectedIndex
-      const offset = cardIndex - selectedIndex
-      const distance = Math.abs(offset)
+    const card = bannerStack.querySelector('.banner-card')
+    card?.querySelector('.banner-card__badge')?.replaceChildren(document.createTextNode(selectedItem.badge))
+    card?.querySelector('.banner-card__meta')?.replaceChildren(document.createTextNode(selectedItem.status))
+    card?.querySelector('.seamless-card__headline')?.replaceChildren(document.createTextNode(selectedItem.headline))
+    card?.querySelector('.seamless-card__title')?.replaceChildren(document.createTextNode(selectedItem.title))
 
-      card.classList.toggle('is-active', isActive)
-      card.setAttribute('aria-pressed', String(isActive))
-      card.style.setProperty('--z', String(8 - distance))
-      card.style.setProperty('--side-shift', `${offset * metrics.shiftStep}rem`)
-      card.style.setProperty('--depth-shift', `${distance * -metrics.depthStep}rem`)
-      card.style.setProperty('--turn', `${offset * -metrics.rotateStep}deg`)
-      card.style.setProperty('--card-scale', String(Math.max(0.76, 1 - distance * metrics.scaleStep)))
-      card.style.setProperty('--card-opacity', String(Math.max(0.52, 1 - distance * 0.12)))
-      card.style.setProperty('--card-blur', `${distance * 1.7}px`)
-      card.style.setProperty('--card-saturation', String(Math.max(0.68, 1 - distance * 0.08)))
+    ;[...bannerStack.querySelectorAll('.seamless-product')].forEach((productButton) => {
+      const isActive = Number(productButton.dataset.bannerIndex || 0) === selectedIndex
+      productButton.classList.toggle('is-active', isActive)
+      productButton.setAttribute('aria-pressed', String(isActive))
     })
 
     ;[...bannerControls.querySelectorAll('.banner-dot')].forEach((control) => {
@@ -289,29 +267,51 @@ function setupBannerHero() {
     })
   }
 
-  const bannerCards = featuredBanners.map((item, index) => {
-    const button = document.createElement('button')
-    button.className = `banner-card${index === 0 ? ' is-active' : ''}`
-    button.type = 'button'
-    button.dataset.bannerIndex = String(index)
-    button.style.setProperty('--offset', String(index))
-    button.style.setProperty('--distance', String(index))
-    button.setAttribute('aria-label', `Show ${item.title}`)
-    button.setAttribute('aria-pressed', String(index === 0))
-    button.innerHTML = `
-      <picture>
-        <source media="(max-width: 720px)" srcset="${item.mobileImage}" />
-        <img src="${item.desktopImage}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
-      </picture>
-      <span class="banner-card__badge">${item.badge}</span>
-      <span class="banner-card__meta">${item.status}</span>
-    `
+  const productButtons = featuredBanners
+    .map(
+      (item, index) => `
+        <button
+          class="seamless-product${index === 0 ? ' is-active' : ''}"
+          type="button"
+          data-banner-index="${index}"
+          aria-label="Bring ${item.title} forward"
+          aria-pressed="${index === 0}"
+        >
+          <img src="${item.image}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
+          <span>${item.title.replace('Afrinetics ', '')}</span>
+        </button>
+      `
+    )
+    .join('')
 
-    button.addEventListener('pointerenter', () => setActiveBanner(index))
-    button.addEventListener('click', () => setActiveBanner(index))
-    button.addEventListener('focus', () => setActiveBanner(index))
+  const bannerCard = document.createElement('div')
+  bannerCard.className = 'banner-card is-active'
+  bannerCard.setAttribute('role', 'group')
+  bannerCard.setAttribute('aria-label', 'Interactive Afrinetics product lineup')
+  bannerCard.innerHTML = `
+    <picture>
+      <source media="(max-width: 720px)" srcset="/assets/seamless/background-mobile.jpg?v=20260709-2" />
+      <img
+        class="seamless-card__background"
+        src="/assets/seamless/background-desktop.jpg?v=20260709-2"
+        alt=""
+        loading="eager"
+        aria-hidden="true"
+      />
+    </picture>
+    <span class="banner-card__badge"></span>
+    <span class="seamless-card__headline"></span>
+    <span class="seamless-card__divider" aria-hidden="true"></span>
+    <span class="seamless-card__lineup">${productButtons}</span>
+    <span class="seamless-card__title"></span>
+    <span class="banner-card__meta"></span>
+  `
 
-    return button
+  bannerCard.querySelectorAll('.seamless-product').forEach((productButton) => {
+    const productIndex = Number(productButton.dataset.bannerIndex || 0)
+    productButton.addEventListener('pointerenter', () => setActiveBanner(productIndex))
+    productButton.addEventListener('click', () => setActiveBanner(productIndex))
+    productButton.addEventListener('focus', () => setActiveBanner(productIndex))
   })
 
   const controls = featuredBanners.map((item, index) => {
@@ -327,10 +327,9 @@ function setupBannerHero() {
     return control
   })
 
-  bannerStack.replaceChildren(...bannerCards)
+  bannerStack.replaceChildren(bannerCard)
   bannerControls.replaceChildren(...controls)
   setActiveBanner(0)
-  window.addEventListener('resize', () => setActiveBanner(activeBannerIndex), { passive: true })
 }
 
 const productGrid = document.querySelector('#product-grid')
