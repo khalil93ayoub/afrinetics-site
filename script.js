@@ -302,7 +302,7 @@ function setupBannerHero() {
     <span class="banner-card__badge"></span>
     <span class="seamless-card__headline"></span>
     <span class="seamless-card__divider" aria-hidden="true"></span>
-    <span class="seamless-card__lineup">${productButtons}</span>
+    <div class="seamless-card__lineup">${productButtons}</div>
     <span class="seamless-card__title"></span>
     <span class="banner-card__meta"></span>
   `
