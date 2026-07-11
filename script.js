@@ -94,6 +94,11 @@ const featuredBanners = [
         label: 'Side view',
         src: '/assets/product-photos/sayajin-side.jpg?v=20260711-1',
         alt: 'Side view of Afrinetics Sayajin t-shirt on model'
+      },
+      {
+        label: 'View grid',
+        src: '/assets/product-photos/sayajin-views.jpg?v=20260711-2',
+        alt: 'Grid of Afrinetics Sayajin t-shirt model views'
       }
     ]
   },
@@ -110,7 +115,28 @@ const featuredBanners = [
     alt: 'Afrinetics Legacy grey sleeveless t-shirt banner',
     available: false,
     features: ['Heritage design', 'Statement graphic', 'Coming soon'],
-    photos: []
+    photos: [
+      {
+        label: 'Front and back',
+        src: '/assets/product-photos/legacy-grid.jpg?v=20260711-2',
+        alt: 'Model wearing Afrinetics Legacy t-shirt front and back'
+      },
+      {
+        label: 'Front view',
+        src: '/assets/product-photos/legacy-front.jpg?v=20260711-2',
+        alt: 'Front view of Afrinetics Legacy t-shirt on model'
+      },
+      {
+        label: 'Side view',
+        src: '/assets/product-photos/legacy-side.jpg?v=20260711-2',
+        alt: 'Side view of Afrinetics Legacy t-shirt on model'
+      },
+      {
+        label: 'View grid',
+        src: '/assets/product-photos/legacy-views.jpg?v=20260711-2',
+        alt: 'Grid of Afrinetics Legacy t-shirt model views'
+      }
+    ]
   },
   {
     title: 'Afrinetics Unbreakable',
