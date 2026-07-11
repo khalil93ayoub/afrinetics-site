@@ -32,35 +32,59 @@ const socialLinks = [
 const featuredBanners = [
   {
     title: 'Afrinetics Basic',
+    shortTitle: 'Basic T-Shirt',
+    tagline: 'Timeless. Versatile. Essential.',
+    description:
+      'The Afrinetics Basic T-Shirt is crafted for clean everyday wear, soft comfort, and a direct identity statement.',
     headline: 'Pure roots, clean style, and everyday pride made for confident movement.',
     status: 'Available now',
     badge: '€24.99',
     image: '/assets/seamless/basic-shirt.png?v=20260709-2',
-    alt: 'Afrinetics Basic black half-sleeve t-shirt banner'
+    alt: 'Afrinetics Basic black half-sleeve t-shirt banner',
+    available: true,
+    features: ['100% cotton', 'Soft feel', 'Everyday fit']
   },
   {
     title: 'Afrinetics Sayajin',
+    shortTitle: 'Sayajin T-Shirt',
+    tagline: 'Unleash your inner warrior.',
+    description:
+      'A high-energy graphic drop built around power, focus, and relentless purpose.',
     headline: 'Power in every thread, made for warriors who rise with purpose.',
     status: 'Coming soon',
     badge: 'Coming soon',
     image: '/assets/seamless/sayajin-shirt.png?v=20260709-2',
-    alt: 'Afrinetics Sayajin sleeveless black t-shirt banner'
+    alt: 'Afrinetics Sayajin sleeveless black t-shirt banner',
+    available: false,
+    features: ['Graphic drop', 'Training spirit', 'Coming soon']
   },
   {
     title: 'Afrinetics Legacy',
+    shortTitle: 'Legacy T-Shirt',
+    tagline: 'Honor the past. Build the future.',
+    description:
+      'A heritage-driven piece inspired by discipline, origin, and the strength carried forward.',
     headline: 'Built on legacy, driven by discipline, and worn with unshakable pride.',
     status: 'Coming soon',
     badge: 'Coming soon',
     image: '/assets/seamless/legacy-shirt.png?v=20260709-2',
-    alt: 'Afrinetics Legacy grey sleeveless t-shirt banner'
+    alt: 'Afrinetics Legacy grey sleeveless t-shirt banner',
+    available: false,
+    features: ['Heritage design', 'Statement graphic', 'Coming soon']
   },
   {
     title: 'Afrinetics Unbreakable',
+    shortTitle: 'Unbreakable T-Shirt',
+    tagline: 'Unbreakable mind. Unstoppable spirit.',
+    description:
+      'A bold sleeveless hoodie concept made for fearless movement and steady confidence.',
     headline: 'Bold spirit, fearless heart, and unshaken pride stitched into every seam.',
     status: 'Coming soon',
     badge: 'Coming soon',
     image: '/assets/seamless/unbreakable-shirt.png?v=20260709-2',
-    alt: 'Afrinetics Unbreakable sleeveless hoodie banner'
+    alt: 'Afrinetics Unbreakable sleeveless hoodie banner',
+    available: false,
+    features: ['Sleeveless hoodie', 'Bold graphic', 'Coming soon']
   }
 ]
 
@@ -85,9 +109,9 @@ function getSelectedSize(form) {
   return product.sizes.includes(selectedSize) ? selectedSize : product.sizes[0]
 }
 
-function createCheckoutPanel() {
+function createCheckoutPanel(compact = false) {
   const form = document.createElement('form')
-  form.className = 'checkout-card'
+  form.className = `checkout-card${compact ? ' checkout-card--compact' : ''}`
   form.id = 'checkout-form'
 
   const sizeOptions = product.sizes
@@ -159,77 +183,113 @@ function setupCheckout() {
   updateButtonLabel()
 }
 
-function setupProductGallery() {
-  const mainImage = document.querySelector('#product-showcase')
-  const thumbnails = [...document.querySelectorAll('.gallery-thumb')]
-  const stageButton = document.querySelector('[data-gallery-open]')
-  const lightbox = document.querySelector('#image-lightbox')
-  const lightboxImage = lightbox?.querySelector('.lightbox__image')
-  const lightboxClose = lightbox?.querySelector('.lightbox__close')
+function createCollectionCard(item, index) {
+  const card = document.createElement('article')
+  card.className = 'collection-card'
+  card.dataset.productIndex = String(index)
+  card.innerHTML = `
+    <button class="collection-card__media" type="button" aria-label="View ${item.title}">
+      <span class="collection-card__status">${item.available ? 'Available' : 'Coming soon'}</span>
+      <img src="${item.image}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
+    </button>
+    <div class="collection-card__body">
+      <p>Afrinetics</p>
+      <h3>${item.shortTitle}</h3>
+      <span>${item.tagline}</span>
+      <strong>${item.available ? product.price : 'Coming soon'}</strong>
+      <button class="button collection-card__button" type="button">
+        ${item.available ? 'Buy Now' : 'Notify Me'}
+      </button>
+    </div>
+  `
 
-  if (!mainImage || thumbnails.length === 0) {
+  return card
+}
+
+function renderProductDetail(index = 0) {
+  const selectedItem = featuredBanners[index] || featuredBanners[0]
+  const detail = document.querySelector('#product-detail')
+  const kicker = document.querySelector('#product-detail-kicker')
+  const title = document.querySelector('#product-detail-title')
+  const tagline = document.querySelector('#product-detail-tagline')
+  const copy = document.querySelector('#product-detail-copy')
+  const features = document.querySelector('#detail-features')
+  const thumbs = document.querySelector('#detail-thumbs')
+  const stage = document.querySelector('#detail-stage')
+  const purchase = document.querySelector('#product-detail-purchase')
+
+  if (!detail || !kicker || !title || !tagline || !copy || !features || !thumbs || !stage || !purchase) {
     return
   }
 
-  function setActiveThumbnail(selected) {
-    thumbnails.forEach((thumbnail) => {
-      const isActive = thumbnail === selected
-      thumbnail.classList.toggle('is-active', isActive)
-      thumbnail.setAttribute('aria-pressed', String(isActive))
+  kicker.textContent = selectedItem.title
+  title.textContent = selectedItem.shortTitle
+  tagline.textContent = selectedItem.tagline
+  copy.textContent = selectedItem.description
+
+  features.replaceChildren(
+    ...selectedItem.features.map((feature) => {
+      const item = document.createElement('span')
+      item.textContent = feature
+      return item
     })
+  )
+
+  thumbs.replaceChildren(
+    ...['Front view', 'Side view', 'Back view', 'Model set'].map((label) => {
+      const placeholder = document.createElement('button')
+      placeholder.className = 'detail-thumb-placeholder'
+      placeholder.type = 'button'
+      placeholder.textContent = label
+      return placeholder
+    })
+  )
+
+  stage.replaceChildren()
+  const imagePlaceholder = document.createElement('div')
+  imagePlaceholder.className = 'detail-image-placeholder'
+  imagePlaceholder.innerHTML = `
+    <span>Image placeholder</span>
+  `
+  stage.append(imagePlaceholder)
+
+  if (selectedItem.available) {
+    purchase.replaceChildren(createCheckoutPanel(true))
+    setupCheckout()
+  } else {
+    const notify = document.createElement('a')
+    notify.className = 'button notify-button'
+    notify.href = 'mailto:khalil93paypal@gmail.com?subject=Afrinetics%20notify%20me'
+    notify.textContent = 'Notify Me'
+    purchase.replaceChildren(notify)
   }
 
-  function showImage(thumbnail) {
-    const nextSrc = thumbnail.dataset.galleryImage
-    const nextAlt = thumbnail.dataset.galleryAlt
+  document.querySelectorAll('.collection-card').forEach((card) => {
+    card.classList.toggle('is-active', Number(card.dataset.productIndex || 0) === index)
+  })
+}
 
-    if (!nextSrc || !nextAlt) {
-      return
-    }
+function setupCollection() {
+  const grid = document.querySelector('#collection-grid')
 
-    mainImage.src = nextSrc
-    mainImage.alt = nextAlt
-    setActiveThumbnail(thumbnail)
+  if (!grid) {
+    return
   }
 
-  function closeLightbox() {
-    if (!lightbox) {
-      return
-    }
+  const cards = featuredBanners.map(createCollectionCard)
+  grid.replaceChildren(...cards)
 
-    lightbox.hidden = true
-    document.body.classList.remove('has-lightbox')
-  }
-
-  thumbnails.forEach((thumbnail) => {
-    thumbnail.addEventListener('click', () => showImage(thumbnail))
+  cards.forEach((card) => {
+    const index = Number(card.dataset.productIndex || 0)
+    card.querySelectorAll('button').forEach((button) => {
+      button.addEventListener('click', () => {
+        renderProductDetail(index)
+        document.querySelector('#product-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    })
   })
 
-  stageButton?.addEventListener('click', () => {
-    if (!lightbox || !lightboxImage) {
-      return
-    }
-
-    lightboxImage.src = mainImage.src
-    lightboxImage.alt = mainImage.alt
-    lightbox.hidden = false
-    document.body.classList.add('has-lightbox')
-    lightboxClose?.focus()
-  })
-
-  lightboxClose?.addEventListener('click', closeLightbox)
-
-  lightbox?.addEventListener('click', (event) => {
-    if (event.target === lightbox) {
-      closeLightbox()
-    }
-  })
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      closeLightbox()
-    }
-  })
+  renderProductDetail(0)
 }
 
 function setupBannerHero() {
@@ -332,13 +392,9 @@ function setupBannerHero() {
   setActiveBanner(0)
 }
 
-const productGrid = document.querySelector('#product-grid')
-productGrid?.replaceChildren(createCheckoutPanel())
-
 document
   .querySelector('#social-links')
   ?.replaceChildren(...socialLinks.map(createSocialLink))
 
-setupProductGallery()
-setupCheckout()
 setupBannerHero()
+setupCollection()

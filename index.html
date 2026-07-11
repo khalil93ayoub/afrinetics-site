@@ -14,7 +14,7 @@
     <link rel="preload" as="image" href="/assets/seamless/background-desktop.jpg?v=20260709-2" media="(min-width: 721px)" />
     <link rel="preload" as="image" href="/assets/seamless/background-mobile.jpg?v=20260709-2" media="(max-width: 720px)" />
     <link rel="preload" as="image" href="/assets/seamless/basic-shirt.png?v=20260709-2" />
-    <link rel="stylesheet" href="/styles.css?v=20260711-2" />
+    <link rel="stylesheet" href="/styles.css?v=20260711-3" />
   </head>
   <body>
     <header class="site-header">
@@ -55,67 +55,42 @@
       </section>
 
       <section class="shop" id="shop" aria-labelledby="shop-title">
-        <div class="shop__visual shop-gallery" aria-label="Product photos">
-          <p class="shop__label">Signature drop</p>
-
-          <div class="shop-gallery__thumbs" aria-label="Choose product photo">
-            <button
-              class="gallery-thumb is-active"
-              type="button"
-              data-gallery-image="/tshirt.png?v=20260523-1"
-              data-gallery-alt="Black Afrinetics oversized t-shirt front and back product view"
-              aria-label="Show front and back product view"
-              aria-pressed="true"
-            >
-              <img
-                src="/tshirt.png?v=20260523-1"
-                alt=""
-                aria-hidden="true"
-              />
-            </button>
-            <button
-              class="gallery-thumb"
-              type="button"
-              data-gallery-image="/model-gallery.jpg?v=20260524-1"
-              data-gallery-alt="Models wearing the black Afrinetics oversized t-shirt from the front and back"
-              aria-label="Show model front and back view"
-              aria-pressed="false"
-            >
-              <img
-                src="/model-gallery.jpg?v=20260524-1"
-                alt=""
-                aria-hidden="true"
-              />
-            </button>
-          </div>
-
-          <button
-            class="shop-gallery__stage"
-            type="button"
-            data-gallery-open
-            aria-label="Open selected product photo"
-          >
-            <img
-              class="product-showcase"
-              id="product-showcase"
-              src="/tshirt.png?v=20260523-1"
-              alt="Black Afrinetics oversized t-shirt front and back product view"
-            />
-          </button>
-        </div>
-
-        <div class="shop-panel">
+        <div class="shop__header">
           <div class="section-heading">
-            <p class="section-heading__label">Shop</p>
-            <h2 id="shop-title">Afrinetics oversized t-shirt</h2>
+            <p class="section-heading__label">Our collection</p>
+            <h2 id="shop-title">Find your identity.</h2>
           </div>
           <p class="shop-panel__copy">
-            A black everyday piece with the Afrinetics mark placed front and
-            center. Choose M or L, keep the same €24.99 price, and finish
-            checkout securely through Stripe.
+            Four Afrinetics drops shaped for heritage, movement, and everyday
+            pride. Basic is ready now; the next three are being prepared.
           </p>
+        </div>
 
-          <div class="product-grid" id="product-grid"></div>
+        <div class="collection-grid" id="collection-grid"></div>
+      </section>
+
+      <section
+        class="product-detail"
+        id="product-detail"
+        aria-labelledby="product-detail-title"
+      >
+        <div class="product-detail__gallery" aria-label="Product image placeholders">
+          <div class="detail-thumbs" id="detail-thumbs"></div>
+          <div class="detail-stage" id="detail-stage"></div>
+        </div>
+
+        <div class="product-detail__panel">
+          <p class="section-heading__label" id="product-detail-kicker">
+            Afrinetics Basic
+          </p>
+          <h2 id="product-detail-title">Basic T-Shirt</h2>
+          <p class="product-detail__tagline" id="product-detail-tagline">
+            Timeless. Versatile. Essential.
+          </p>
+          <p class="product-detail__copy" id="product-detail-copy"></p>
+
+          <div class="detail-features" id="detail-features"></div>
+          <div class="product-detail__purchase" id="product-detail-purchase"></div>
         </div>
       </section>
 
@@ -154,6 +129,6 @@
       <img class="lightbox__image" src="" alt="" />
     </div>
 
-    <script src="/script.js?v=20260711-2" defer></script>
+    <script src="/script.js?v=20260711-3" defer></script>
   </body>
 </html>
