@@ -42,7 +42,29 @@ const featuredBanners = [
     image: '/assets/seamless/basic-shirt.png?v=20260709-2',
     alt: 'Afrinetics Basic black half-sleeve t-shirt banner',
     available: true,
-    features: ['100% cotton', 'Soft feel', 'Everyday fit']
+    features: ['100% cotton', 'Soft feel', 'Everyday fit'],
+    photos: [
+      {
+        label: 'Front and back',
+        src: '/assets/product-photos/basic-grid.jpg?v=20260711-1',
+        alt: 'Model wearing Afrinetics Basic t-shirt front and back'
+      },
+      {
+        label: 'Front view',
+        src: '/assets/product-photos/basic-front.jpg?v=20260711-1',
+        alt: 'Front view of Afrinetics Basic t-shirt on model'
+      },
+      {
+        label: 'Side view',
+        src: '/assets/product-photos/basic-side.jpg?v=20260711-1',
+        alt: 'Side view of Afrinetics Basic t-shirt on model'
+      },
+      {
+        label: 'View grid',
+        src: '/assets/product-photos/basic-views.jpg?v=20260711-1',
+        alt: 'Grid of Afrinetics Basic t-shirt model views'
+      }
+    ]
   },
   {
     title: 'Afrinetics Sayajin',
@@ -56,7 +78,24 @@ const featuredBanners = [
     image: '/assets/seamless/sayajin-shirt.png?v=20260709-2',
     alt: 'Afrinetics Sayajin sleeveless black t-shirt banner',
     available: false,
-    features: ['Graphic drop', 'Training spirit', 'Coming soon']
+    features: ['Graphic drop', 'Training spirit', 'Coming soon'],
+    photos: [
+      {
+        label: 'Front and back',
+        src: '/assets/product-photos/sayajin-grid.jpg?v=20260711-1',
+        alt: 'Model wearing Afrinetics Sayajin t-shirt front and back'
+      },
+      {
+        label: 'Front view',
+        src: '/assets/product-photos/sayajin-front.jpg?v=20260711-1',
+        alt: 'Front view of Afrinetics Sayajin t-shirt on model'
+      },
+      {
+        label: 'Side view',
+        src: '/assets/product-photos/sayajin-side.jpg?v=20260711-1',
+        alt: 'Side view of Afrinetics Sayajin t-shirt on model'
+      }
+    ]
   },
   {
     title: 'Afrinetics Legacy',
@@ -70,7 +109,8 @@ const featuredBanners = [
     image: '/assets/seamless/legacy-shirt.png?v=20260709-2',
     alt: 'Afrinetics Legacy grey sleeveless t-shirt banner',
     available: false,
-    features: ['Heritage design', 'Statement graphic', 'Coming soon']
+    features: ['Heritage design', 'Statement graphic', 'Coming soon'],
+    photos: []
   },
   {
     title: 'Afrinetics Unbreakable',
@@ -84,7 +124,24 @@ const featuredBanners = [
     image: '/assets/seamless/unbreakable-shirt.png?v=20260709-2',
     alt: 'Afrinetics Unbreakable sleeveless hoodie banner',
     available: false,
-    features: ['Sleeveless hoodie', 'Bold graphic', 'Coming soon']
+    features: ['Sleeveless hoodie', 'Bold graphic', 'Coming soon'],
+    photos: [
+      {
+        label: 'Front and back',
+        src: '/assets/product-photos/unbreakable-grid.jpg?v=20260711-1',
+        alt: 'Model wearing Afrinetics Unbreakable sleeveless hoodie front and back'
+      },
+      {
+        label: 'Front view',
+        src: '/assets/product-photos/unbreakable-front.jpg?v=20260711-1',
+        alt: 'Front view of Afrinetics Unbreakable sleeveless hoodie on model'
+      },
+      {
+        label: 'Side view',
+        src: '/assets/product-photos/unbreakable-side.jpg?v=20260711-1',
+        alt: 'Side view of Afrinetics Unbreakable sleeveless hoodie on model'
+      }
+    ]
   }
 ]
 
@@ -185,12 +242,14 @@ function setupCheckout() {
 
 function createCollectionCard(item, index) {
   const card = document.createElement('article')
+  const cardImage = item.photos?.[0] || { src: item.image, alt: item.alt }
+
   card.className = 'collection-card'
   card.dataset.productIndex = String(index)
   card.innerHTML = `
     <button class="collection-card__media" type="button" aria-label="View ${item.title}">
       <span class="collection-card__status">${item.available ? 'Available' : 'Coming soon'}</span>
-      <img src="${item.image}" alt="${item.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
+      <img src="${cardImage.src}" alt="${cardImage.alt}" loading="${index === 0 ? 'eager' : 'lazy'}" />
     </button>
     <div class="collection-card__body">
       <p>Afrinetics</p>
@@ -235,23 +294,51 @@ function renderProductDetail(index = 0) {
     })
   )
 
-  thumbs.replaceChildren(
-    ...['Front view', 'Side view', 'Back view', 'Model set'].map((label) => {
-      const placeholder = document.createElement('button')
-      placeholder.className = 'detail-thumb-placeholder'
-      placeholder.type = 'button'
-      placeholder.textContent = label
-      return placeholder
-    })
-  )
-
   stage.replaceChildren()
-  const imagePlaceholder = document.createElement('div')
-  imagePlaceholder.className = 'detail-image-placeholder'
-  imagePlaceholder.innerHTML = `
-    <span>Image placeholder</span>
-  `
-  stage.append(imagePlaceholder)
+
+  if (selectedItem.photos.length > 0) {
+    const heroImage = document.createElement('img')
+    heroImage.className = 'detail-stage__image'
+    heroImage.src = selectedItem.photos[0].src
+    heroImage.alt = selectedItem.photos[0].alt
+    stage.append(heroImage)
+
+    thumbs.replaceChildren(
+      ...selectedItem.photos.map((photo, photoIndex) => {
+        const thumb = document.createElement('button')
+        thumb.className = `detail-thumb${photoIndex === 0 ? ' is-active' : ''}`
+        thumb.type = 'button'
+        thumb.setAttribute('aria-label', `Show ${photo.label}`)
+        thumb.setAttribute('aria-pressed', String(photoIndex === 0))
+        thumb.innerHTML = `<img src="${photo.src}" alt="" aria-hidden="true" />`
+        thumb.addEventListener('click', () => {
+          heroImage.src = photo.src
+          heroImage.alt = photo.alt
+          thumbs.querySelectorAll('.detail-thumb').forEach((button) => {
+            const isActive = button === thumb
+            button.classList.toggle('is-active', isActive)
+            button.setAttribute('aria-pressed', String(isActive))
+          })
+        })
+        return thumb
+      })
+    )
+  } else {
+    thumbs.replaceChildren(
+      ...['Front view', 'Side view', 'Back view', 'Model set'].map((label) => {
+        const placeholder = document.createElement('button')
+        placeholder.className = 'detail-thumb-placeholder'
+        placeholder.type = 'button'
+        placeholder.textContent = label
+        return placeholder
+      })
+    )
+
+    const imagePlaceholder = document.createElement('div')
+    imagePlaceholder.className = 'detail-image-placeholder'
+    imagePlaceholder.innerHTML = '<span>Image placeholder</span>'
+    stage.append(imagePlaceholder)
+  }
 
   if (selectedItem.available) {
     purchase.replaceChildren(createCheckoutPanel(true))
