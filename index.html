@@ -1,138 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Afrinetics oversized t-shirts inspired by African identity, pride, and heritage."
-    />
-    <title>Afrinetics | African Genetics</title>
-    <link rel="preload" as="image" href="/logo.png?v=20260523-1" />
-    <link rel="preload" as="image" href="/tshirt.png?v=20260523-1" />
-    <link rel="preload" as="image" href="/model-gallery.jpg?v=20260524-1" />
-    <link rel="preload" as="image" href="/assets/seamless/background-desktop.jpg?v=20260709-2" media="(min-width: 721px)" />
-    <link rel="preload" as="image" href="/assets/seamless/background-mobile.jpg?v=20260709-2" media="(max-width: 720px)" />
-    <link rel="preload" as="image" href="/assets/seamless/basic-shirt.png?v=20260709-2" />
-    <link rel="preload" as="image" href="/assets/product-photos/basic-grid.jpg?v=20260711-1" />
-    <link rel="preload" as="image" href="/assets/product-photos/sayajin-grid.jpg?v=20260711-1" />
-    <link rel="preload" as="image" href="/assets/product-photos/legacy-grid.jpg?v=20260711-2" />
-    <link rel="preload" as="image" href="/assets/product-photos/unbreakable-grid.jpg?v=20260711-1" />
-    <link rel="stylesheet" href="/styles.css?v=20260711-5" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Afrinetics African genetics fitness and streetwear built for movement.">
+  <title>Afrinetics | African Genetics</title>
+  <link rel="stylesheet" href="/styles.css?v=20260913-2">
+</head>
+<body>
+  <main>
     <header class="site-header">
-      <a class="brand-link" href="#top">Afrinetics</a>
+      <a class="brand" href="#top" aria-label="Afrinetics home">AFRINETICS</a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#motion-drop">Drop</a>
-        <a href="#shop">Shop</a>
+        <a href="#collection">Shop</a>
+        <a href="#workout">Workout</a>
         <a href="#story">Story</a>
       </nav>
+      <a class="header-cart" href="#collection" aria-label="Open shop">Shop <span>↗</span></a>
     </header>
 
-    <main id="top" class="site-shell">
-      <section
-        class="banner-hero"
-        id="motion-drop"
-        aria-labelledby="banner-hero-title"
-      >
-        <div class="banner-hero__intro">
-          <p class="section-heading__label">African Genetics</p>
-          <h2 id="banner-hero-title">AFRINETICS</h2>
+    <section class="hero" id="top" data-reveal>
+      <div class="hero__texture" aria-hidden="true"></div>
+      <div class="hero__helix hero__helix--one" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hero__copy">
+        <p class="eyebrow">African genetics / built to move</p>
+        <h1>African<br><em>genetics.</em></h1>
+        <p class="hero__intro">A visual language for African men shaping the fitness world through discipline, physique, and presence.</p>
+        <div class="hero__actions">
+          <a class="button button--accent" href="#collection">Shop the drop <span>↗</span></a>
+          <a class="text-button" href="#story">Why African Genetics <span>↓</span></a>
         </div>
-
-        <div
-          class="banner-hero__stage"
-          id="banner-stack"
-          aria-label="Afrinetics featured banner selector"
-        ></div>
-
-        <div
-          class="banner-hero__controls"
-          id="banner-controls"
-          aria-label="Choose featured banner"
-        ></div>
-
-        <div class="banner-hero__footer">
-          <a class="button banner-hero__button" href="#shop">Shop Basic</a>
+        <div class="hero__meta"><span>01 / 04</span><span>Performance / Heritage / Physique</span></div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__visual-wash"></div>
+        <div class="hero__product-card">
+          <span class="status-dot" id="hero-status"><b></b> Available now</span>
+          <img id="hero-product-image" src="/assets/seamless/basic-shirt.png" alt="Afrinetics Basic black t-shirt">
+          <div><strong id="hero-product-title">Basic T-Shirt</strong><span id="hero-product-price">€24.99</span></div>
         </div>
-      </section>
+        <p class="hero__vertical">Strength lives in our roots</p>
+      </div>
+      <div class="hero__scroll">Scroll to explore <span>↓</span></div>
+    </section>
 
-      <section class="shop" id="shop" aria-labelledby="shop-title">
-        <div class="shop__header">
-          <div class="section-heading">
-            <p class="section-heading__label">Our collection</p>
-            <h2 id="shop-title">Find your identity.</h2>
-          </div>
-          <p class="shop-panel__copy">
-            Four Afrinetics drops shaped for heritage, movement, and everyday
-            pride. Basic is ready now; the next three are being prepared.
-          </p>
-        </div>
+    <section class="drop-strip" aria-label="Choose a featured product">
+      <div class="drop-strip__label"><span>Current drop</span><strong id="current-drop-title">Basic T-Shirt</strong></div>
+      <div class="drop-strip__items" id="drop-items"></div>
+    </section>
 
-        <div class="collection-grid" id="collection-grid"></div>
-      </section>
+    <section class="manifesto section-shell" id="story" data-reveal>
+      <div class="manifesto__heading"><p class="eyebrow">01 / The idea</p><h2>More than fitness.<br><span>A living lineage.</span></h2></div>
+      <div class="manifesto__content">
+        <p class="lead">African Genetics is our way of naming the connection between heritage and the work.</p>
+        <p>African men have always brought presence, discipline, and distinct physical expression to bodybuilding and aesthetic fitness. Afrinetics turns that presence into a modern visual world—one built around movement, self-definition, and the pride of showing up.</p>
+        <a class="inline-link" href="#workout">Enter the workout <span>↘</span></a>
+      </div>
+      <div class="manifesto__helix" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    </section>
 
-      <section
-        class="product-detail"
-        id="product-detail"
-        aria-labelledby="product-detail-title"
-      >
-        <div class="product-detail__gallery" aria-label="Product image placeholders">
-          <div class="detail-thumbs" id="detail-thumbs"></div>
-          <div class="detail-stage" id="detail-stage"></div>
-        </div>
+    <section class="workout section-shell" id="workout" data-reveal>
+      <div class="workout__intro"><p class="eyebrow">02 / Workout culture</p><h2>Built through<br><span>discipline.</span></h2><p>Different bodies. Same commitment. The pieces move from the training floor to the street without losing their roots.</p></div>
+      <div class="workout__grid">
+        <article class="workout-card workout-card--large"><img src="/assets/product-photos/basic-front.jpg" alt="Male athlete wearing Afrinetics Basic t-shirt"><div><span>01 / Strength</span><strong>Show the work.</strong></div></article>
+        <article class="workout-card workout-card--small"><img src="/assets/product-photos/legacy-front.jpg" alt="Male athlete wearing Afrinetics Legacy t-shirt"><div><span>02 / Heritage</span><strong>Carry it forward.</strong></div></article>
+        <article class="workout-card workout-card--text"><span>Performance<br>is personal.</span><i>✳</i></article>
+      </div>
+    </section>
 
-        <div class="product-detail__panel">
-          <p class="section-heading__label" id="product-detail-kicker">
-            Afrinetics Basic
-          </p>
-          <h2 id="product-detail-title">Basic T-Shirt</h2>
-          <p class="product-detail__tagline" id="product-detail-tagline">
-            Timeless. Versatile. Essential.
-          </p>
-          <p class="product-detail__copy" id="product-detail-copy"></p>
+    <section class="collection section-shell" id="collection" data-reveal>
+      <div class="section-topline"><p class="eyebrow">03 / The collection</p><span>Available now / Coming soon</span></div>
+      <div class="collection__heading"><h2>Same roots.<br><span>New moves.</span></h2><p>Four pieces. One visual language. Start with Basic, then watch the next chapter arrive.</p></div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
 
-          <div class="detail-features" id="detail-features"></div>
-          <div class="product-detail__purchase" id="product-detail-purchase"></div>
-        </div>
-      </section>
-
-      <section class="story" id="story" aria-labelledby="story-title">
-        <div class="section-heading">
-          <p class="section-heading__label">Story</p>
-          <h2 id="story-title">Made for identity in motion.</h2>
-        </div>
-
-        <div class="story__grid">
-          <article>
-            <h3>Identity</h3>
-            <p>A clear visual language rooted in African genetics and culture.</p>
-          </article>
-          <article>
-            <h3>Pride</h3>
-            <p>Designed to feel direct, confident, and easy to wear.</p>
-          </article>
-          <article>
-            <h3>Heritage</h3>
-            <p>A modern streetwear layer carrying a deeper origin story.</p>
-          </article>
-        </div>
-      </section>
-
-      <footer class="site-footer">
-        <p>Follow Afrinetics</p>
-        <nav class="social-links" id="social-links" aria-label="Social links"></nav>
-      </footer>
-    </main>
-
-    <div class="lightbox" id="image-lightbox" hidden>
-      <button class="lightbox__close" type="button" aria-label="Close image">
-        Close
-      </button>
-      <img class="lightbox__image" src="" alt="" />
-    </div>
-
-    <script src="/script.js?v=20260711-5" defer></script>
-  </body>
+    <section class="closing section-shell" data-reveal>
+      <div class="closing__helix" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="eyebrow">04 / Keep moving</p><h2>African genetics.<br><span>In motion.</span></h2><a class="button button--light" href="#collection">Explore the collection <span>↗</span></a>
+    </section>
+    <footer class="site-footer"><div><a class="brand" href="#top">AFRINETICS</a><p>Built on heritage. Made for movement.</p></div><div class="footer-links"><a href="#collection">Shop</a><a href="#story">Story</a><a href="https://www.instagram.com/afri_netics/" target="_blank" rel="noreferrer">Instagram ↗</a></div><span>© 2026 Afrinetics</span></footer>
+  </main>
+  <script src="/script.js?v=20260913-2" defer></script>
+</body>
 </html>
